@@ -14,7 +14,7 @@
                     <hr>
                     <strong>{{ $b->keterangan }}</strong>
                 </p>
-                <a href="#" class="btn btn-primary">Pesan</a>
+                <a href="{{ url('pesan') }}/{{ $b->id }}" class="btn btn-primary">Pesan</a>
               </div>
             </div>
         </div>
