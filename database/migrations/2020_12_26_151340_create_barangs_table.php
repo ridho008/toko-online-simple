@@ -19,6 +19,7 @@ class CreateBarangsTable extends Migration
             $table->integer('harga');
             $table->integer('stok');
             $table->string('keterangan');
+            $table->string('gambar');
             $table->timestamps();
         });
     }

@@ -2,22 +2,23 @@
 
 @section('content')
 <div class="container">
+    <h3 class="text-primary">Selamat Datang Di Aplikasi Toko Belanja Laravel 6</h3>
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    You are logged in!
-                </div>
+        @foreach($barangs as $b)
+        <div class="col-md-4">
+            <div class="card" style="width: 18rem;">
+              <img src="{{ asset('uploads') }}/{{ $b->gambar }}" class="card-img-top" alt="{{ $b->nama_barang }}">
+              <div class="card-body">
+                <h5 class="card-title">{{ $b->nama_barang }}</h5>
+                <p class="card-text"><strong>Harga</strong> Rp.{{ number_format($b->harga,0,',','.') }}
+                    <hr>
+                    <strong>{{ $b->keterangan }}</strong>
+                </p>
+                <a href="#" class="btn btn-primary">Pesan</a>
+              </div>
             </div>
         </div>
+        @endforeach;
     </div>
 </div>
 @endsection
