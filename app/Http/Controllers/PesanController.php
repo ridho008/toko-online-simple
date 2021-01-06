@@ -8,6 +8,7 @@ use App\PesananDetail;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+Use Alert;
 
 class PesanController extends Controller
 {
@@ -29,7 +30,14 @@ class PesanController extends Controller
 
       // jika stok yang diinputkan lebih besar dari DB
       if($request->jumlah_pesan > $barang->stok) {
+        alert()->warning('Pemberitahuan','Anda Tidak Bisa Memesan Melebihi Stok Yang Ada!');
          return redirect('/pesan/' . $id);
+      }
+
+      // jika user memasukan angka 0
+      if($request->jumlah_pesan < 1) {
+        alert()->warning('Pemberitahuan','Anda Belum Memesan Apapun.');
+        return redirect('/pesan/' . $id);
       }
 
       // cek validation
@@ -72,6 +80,7 @@ class PesanController extends Controller
       $pesanan->jml_harga = $pesanan->jml_harga + $barang->harga * $request->jumlah_pesan;
       $pesanan->update();
 
+      alert()->success('Berhasil','Pesanan Berhasil Di Masukan Keranjang');
       return redirect('/home');
     }
 }

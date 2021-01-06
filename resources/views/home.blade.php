@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+@section('title', 'Toko Batik Indonesia')
 @section('content')
 <div class="container">
     <h3 class="text-primary">Selamat Datang Di Aplikasi Toko Belanja Laravel 6</h3>

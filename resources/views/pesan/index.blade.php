@@ -42,10 +42,10 @@
                                 <tr>
                                     <th>Jumlah Pesan</th>
                                     <th>:</th>
-                                    <td>
-                                        <input type="text" name="jumlah_pesan" size="4" min="0" class="form-control">
-                                        <button type="submit" class="btn-sm btn btn-primary">Masukan Keranjang</button>
-                                    </td>
+                                    <th>
+                                        <input type="text" name="jumlah_pesan" min="0" class="form-control">
+                                        <button type="submit" class="btn-sm btn btn-primary btn-block">Masukan Keranjang</button>
+                                    </th>
                                 </tr>
                                 </form>
                             </table>

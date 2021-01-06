@@ -78,5 +78,6 @@
         </main>
     </div>
 <script src="{{ asset('js/bootstrap.min.js') }}" defer></script>
+@include('sweetalert::alert')
 </body>
 </html>
