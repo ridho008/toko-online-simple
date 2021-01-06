@@ -39,6 +39,21 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <?php 
+                            $pesanan_utama = \App\Pesanan::where('user_id', Auth::user()->id)->where('status', 0)->first();
+                            if(!empty($pesanan_utama)) {
+                            $notif = \App\PesananDetail::where('pesanan_id', $pesanan_utama->id)->count();
+                            }
+                            ?>
+                            <a class="nav-link" href="{{ url('checkout') }}">Keranjang <span class="badge badge-primary">
+                                @if(!empty($notif))
+                                {{ $notif }}
+                                @else
+                                0
+                                @endif
+                            </span></a>
+                        </li>
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">

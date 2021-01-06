@@ -81,6 +81,45 @@ class PesanController extends Controller
       $pesanan->update();
 
       alert()->success('Berhasil','Pesanan Berhasil Di Masukan Keranjang');
-      return redirect('/home');
+      return redirect('/checkout');
+    }
+
+    public function checkout()
+    {
+      $pesanan = Pesanan::where('user_id', Auth::user()->id)->where('status', 0)->first();
+      if(!empty($pesanan)) {
+        $pesanan_detail = PesananDetail::where('pesanan_id', $pesanan->id)->get();
+      }
+
+      return view('pesan.checkout', compact('pesanan', 'pesanan_detail'));
+    }
+
+    public function delete($id)
+    {
+      $pesanan_detail = PesananDetail::where('id', $id)->first();
+      $pesanan = pesanan::where('id', $pesanan_detail->pesanan_id)->first();
+      $pesanan->jml_harga = $pesanan->jml_harga - $pesanan_detail->jml_harga;
+      $pesanan->update();
+      PesananDetail::where('id', $id)->delete();
+      alert()->success('Berhasil','Pesanan Berhasil Di Hapus Pesanan');
+      return redirect('/checkout');
+    }
+
+    public function prosesCheckout()
+    {
+      $pesanan = Pesanan::where('user_id', Auth::user()->id)->where('status', 0)->first();
+      $pesanan_id = $pesanan->id;
+      $pesanan->status = 1;
+      $pesanan->update();
+
+      $pesanan_details = PesananDetail::where('pesanan_id', $pesanan_id)->get();
+      foreach ($pesanan_details as $pds) {
+        $barang = Barang::where('id', $pds->barang_id)->first();
+        $barang->stok = $barang->stok - $pds->jumlah;
+        $barang->update();
+      }
+
+      alert()->success('Berhasil','Pesanan Berhasil Di Proses.');
+      return redirect('/checkout');
     }
 }

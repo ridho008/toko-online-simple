@@ -20,3 +20,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/pesan/{id}', 'PesanController@index');
 Route::post('/pesan/{id}', 'PesanController@pesan');
+
+// Halaman Checkout
+Route::get('/checkout', 'PesanController@checkout');
+Route::post('/checkout/{id}', 'PesanController@delete');
+Route::get('/proses-checkout', 'PesanController@prosesCheckout');
