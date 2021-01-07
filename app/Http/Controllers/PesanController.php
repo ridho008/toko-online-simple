@@ -149,4 +149,22 @@ class PesanController extends Controller
 
       return view('pesan.detail_riwayat_belaja', compact('pesanan', 'pesanan_details'));
     }
+
+    public function updateJumlah(Request $request)
+    {
+      $pesanan = Pesanan::where('user_id', Auth::user()->id)->where('status', 0)->first();
+      $pesanan_id = $pesanan->id;
+      $pesanan_details = PesananDetail::where('pesanan_id', $pesanan_id)->get();
+      foreach ($pesanan_details as $pds) {
+        $pds->id;
+        $pesanan->id;
+        $pds->jumlah = $request->jumlah;
+        $pesanan->jml_harga = $request->jumlah * $pds->jml_harga;
+        $pds->jml_harga = $request->jumlah * $pds->jml_harga;
+        $pds->update();
+        $pesanan->update();
+      }
+      alert()->success('Berhasil','Jumlah Barang Berhasil Di Perbarui.');
+      return redirect('/checkout');
+    }
 }

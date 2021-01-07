@@ -13,6 +13,7 @@
                 <div class="card-body">
                     @if(!empty($pesanan))
                     <span class="float-right">Tanggal Pesan : {{ date('d-m-Y', strtotime($pesanan->tanggal)) }}</span>
+                    <form action="{{ url('updateJumlah') }}" method="post">
                     <table class="table">
                         <tr>
                             <th>No</th>
@@ -31,7 +32,10 @@
                                 <img src="{{ asset('uploads') }}/{{ $pd->barang->gambar }}" alt="{{ $pd->barang->nama_barang }}" width="100">
                             </td>
                             <td>{{ $pd->barang->nama_barang }}</td>
-                            <td>{{ $pd->jumlah }}</td>
+                            <td>
+                                <input type="number" class="form-control" name="jumlah" width="40" value="{{ $pd->jumlah }}" min="1">
+                            </td>
+                            {{-- <td>{{ $pd->jumlah }}</td> --}}
                             <td>{{ number_format($pd->barang->harga, 0, ',', '.') }}</td>
                             <td>{{ number_format($pd->jml_harga, 0, ',', '.') }}</td>
                             <td>
@@ -48,10 +52,12 @@
                                 <td>Rp.{{ number_format($pesanan->jml_harga, 0, ',', '.') }}</td>
                                 <td>
                                     <a href="{{ url('proses-checkout') }}" class="btn btn-primary btn-sm">Checkout</a>
+                                    <button type="submit" class="btn btn-success">Proses</button>
                                 </td>
                             </tr>
                         </tfoot>
                     </table>
+                    </form>
                     @endif
                 </div>
             </div>
