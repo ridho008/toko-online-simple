@@ -25,6 +25,8 @@ Route::post('/pesan/{id}', 'PesanController@pesan');
 Route::get('/checkout', 'PesanController@checkout');
 Route::post('/checkout/{id}', 'PesanController@delete');
 Route::get('/proses-checkout', 'PesanController@prosesCheckout');
+Route::get('/history', 'PesanController@history');
+Route::get('/history/{id}', 'PesanController@store');
 
 Route::get('/profile', 'ProfileController@index');
 Route::post('/simpanProfile', 'ProfileController@simpanProfile');

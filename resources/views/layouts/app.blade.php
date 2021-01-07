@@ -55,6 +55,9 @@
                             <a class="nav-link" href="{{ url('profile') }}">Profile</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="{{ url('history') }}">Riwayat Belanja</a>
+                        </li>
+                        <li class="nav-item">
                             <?php 
                             $pesanan_utama = \App\Pesanan::where('user_id', Auth::user()->id)->where('status', 0)->first();
                             if(!empty($pesanan_utama)) {

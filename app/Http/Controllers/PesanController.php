@@ -49,6 +49,7 @@ class PesanController extends Controller
          $pesanan->user_id = Auth::user()->id;
          $pesanan->tanggal = $tanggal;
          $pesanan->status = 0;
+         $pesanan->kode = date('Ymd') . mt_rand(1000, 9999);
          $pesanan->jml_harga = 0;
          $pesanan->save();
       }
@@ -90,7 +91,11 @@ class PesanController extends Controller
       $pesanan = Pesanan::where('user_id', Auth::user()->id)->where('status', 0)->first();
       if(!empty($pesanan)) {
         $pesanan_detail = PesananDetail::where('pesanan_id', $pesanan->id)->get();
+      } else {
+        alert()->error('Peringatan', 'Pesan Beberapa Barang Terlebih Dahulu.');
+        return redirect('/home');
       }
+
 
       return view('pesan.checkout', compact('pesanan', 'pesanan_detail'));
     }
@@ -128,6 +133,20 @@ class PesanController extends Controller
       }
 
       alert()->success('Berhasil','Pesanan Berhasil Di Proses.');
-      return redirect('/checkout');
+      return redirect('/history/' . $pesanan_id);
+    }
+
+    public function history()
+    {
+      $pesanans = Pesanan::where('user_id', Auth::user()->id)->where('status', '!=', 0)->get();
+      return view('pesan.riwayat_belaja', compact('pesanans'));
+    }
+
+    public function store($id)
+    {
+      $pesanan = Pesanan::where('id', $id)->first();
+      $pesanan_details = PesananDetail::where('pesanan_id', $pesanan->id)->get();
+
+      return view('pesan.detail_riwayat_belaja', compact('pesanan', 'pesanan_details'));
     }
 }
