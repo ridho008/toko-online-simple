@@ -16,6 +16,7 @@
                     <table class="table">
                         <tr>
                             <th>No</th>
+                            <th>Foto</th>
                             <th>Nama Barang</th>
                             <th>Jumlah</th>
                             <th>Harga</th>
@@ -26,6 +27,9 @@
                         @foreach($pesanan_detail as $pd)
                         <tr>
                             <td>{{ $no++ }}</td>
+                            <td>
+                                <img src="{{ asset('uploads') }}/{{ $pd->barang->gambar }}" alt="{{ $pd->barang->nama_barang }}" width="100">
+                            </td>
                             <td>{{ $pd->barang->nama_barang }}</td>
                             <td>{{ $pd->jumlah }}</td>
                             <td>{{ number_format($pd->barang->harga, 0, ',', '.') }}</td>
@@ -40,8 +44,8 @@
                         @endforeach
                         <tfoot>
                             <tr>
-                                <td colspan="4">Total Harga</td>
-                                <td>{{ number_format($pesanan->jml_harga, 0, ',', '.') }}</td>
+                                <td colspan="5">Total Harga</td>
+                                <td>Rp.{{ number_format($pesanan->jml_harga, 0, ',', '.') }}</td>
                                 <td>
                                     <a href="{{ url('proses-checkout') }}" class="btn btn-primary btn-sm">Checkout</a>
                                 </td>

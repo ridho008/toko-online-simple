@@ -3,7 +3,7 @@
 @section('title', 'Toko Batik Indonesia')
 @section('content')
 <div class="container">
-    <h3 class="text-primary">Selamat Datang Di Aplikasi Toko Belanja Laravel 6</h3>
+    <h3 class="text-primary text-center mb-3">Selamat Datang Di Aplikasi Toko Belanja Laravel 6</h3>
     <div class="row justify-content-center">
         @foreach($barangs as $b)
         <div class="col-md-4">
