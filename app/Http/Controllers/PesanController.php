@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Barang;
 use App\Pesanan;
+use App\User;
 use App\PesananDetail;
 use Auth;
 use Carbon\Carbon;
@@ -107,11 +108,18 @@ class PesanController extends Controller
 
     public function prosesCheckout()
     {
+      $user = User::where('id', Auth::user()->id)->first();
+      if(empty($user->alamat) || empty($user->no_telp)) {
+        alert()->warning('Gagal','Identitas Diri Anda Lengkap');
+        return redirect('/profile');
+      }
       $pesanan = Pesanan::where('user_id', Auth::user()->id)->where('status', 0)->first();
       $pesanan_id = $pesanan->id;
+      // update status menjadi 1
       $pesanan->status = 1;
       $pesanan->update();
 
+      // mengurangi stok barang setelah melakukan checkout barang
       $pesanan_details = PesananDetail::where('pesanan_id', $pesanan_id)->get();
       foreach ($pesanan_details as $pds) {
         $barang = Barang::where('id', $pds->barang_id)->first();
